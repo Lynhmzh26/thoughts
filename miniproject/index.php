@@ -1,0 +1,77 @@
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Mind</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>My Thoughts</h1>
+    <p>Welcome, <?php echo $_SESSION['username']; ?>!</p>
+
+    <div class="search-container">
+        <input type="date" id="searchDate" placeholder="Search entries by date...">
+        <button class="search-button" id="searchBtn">Search</button>
+    </div>
+
+    <div class="content-wrapper">
+        <!-- Left Column: Entries -->
+        <div class="journal-entries">
+            <h2>My Inbox</h2>
+            <div id="entries"></div>
+        </div>
+
+        <!-- Right Column: New Entry -->
+        <div class="new-entry">
+            <h2>New thoughts</h2>
+            <form id="entryForm">
+                <textarea id="entryText" placeholder="Write your thoughts here..."></textarea>
+                <button type="submit">Add Entry</button>
+            </form>
+            <form action="logout.php" method="post">
+                <button type="submit" class="red-button">Logout</button>
+            </form>
+        </div>
+        
+
+    </div>
+
+        
+    </div>
+
+    <!-- Modal for viewing/editing an entry -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <textarea id="modalEntryText"></textarea>
+            <button id="saveEditBtn">Save Changes</button>
+        </div>
+    </div>
+
+    <!-- Send Modal -->
+<div id="sendModal" class="modal">
+    <div class="modal-content">
+        <span class="closeSendModal close">&times;</span>
+        <h2>Send Entry</h2>
+        <form id="sendForm">
+            <label for="recipientUsername">Recipient Username:</label>
+            <input type="text" id="recipientUsername" name="recipientUsername" required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
